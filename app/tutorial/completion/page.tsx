@@ -171,7 +171,7 @@ export default function CompletionPage() {
       </div>
         
       <div className="flex justify-between items-center mt-8">
-        <Link href="/tutorial/oca">
+        <Link href="/tutorial/smart-contract">
           <Button variant="outline">
             ← Back to Tutorial
           </Button>
