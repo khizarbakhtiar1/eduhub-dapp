@@ -1,8 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
 
-// Replace with your actual API key from Open Campus Developer Account
-const API_KEY = '7884e98a-3460-4cb4-a73c-c4d7625ff7de'; // OCA API Key
-const ISSUER_DID = 'did:key:zUC7FwJUeo1pR6j1tyiF2owzLw66UDV9SCNq11mpDv9sKboW23PfvMnDAbWyr8vp3gAczpwPfwWFeSDzhWrVuoBnB1TkQLNei37ZipaVwGsXm6FD1aBSStxwEVMetREjwYH1vUw';
 
 // OCA API endpoints
 const OCA_API_SANDBOX = 'https://api.vc.staging.opencampus.xyz/issuer/vc';
