@@ -4,6 +4,8 @@ import React, { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
+import WorkshopProgress from "@/components/WorkshopProgress";
+import { Maximize2 } from "lucide-react";
 
 export default function DayThree() {
   const [fullSizeImage, setFullSizeImage] = useState<string | null>(null);
@@ -18,6 +20,9 @@ export default function DayThree() {
 
   return (
     <div className="space-y-8">
+      {/* Workshop Progress */}
+      <WorkshopProgress />
+      
       <h1 className="text-3xl font-bold text-teal-800 mb-6">
         Practical dApp Development - Day 3
       </h1>
@@ -93,29 +98,29 @@ export default function DayThree() {
 
       {/* DApp Images Section */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-8">
-        <div className="w-full relative cursor-pointer" onClick={() => openFullSize("/bootcamp-day-three-1.png")}> 
+        <div className="w-full relative cursor-pointer group" onClick={() => openFullSize("/bootcamp-day-three-1.png")}> 
           <Image
             src="/bootcamp-day-three-1.png"
             alt="DApp Before State Update"
             width={600}
             height={400}
-            className="rounded-lg w-full h-auto hover:opacity-90 transition-opacity"
+            className="rounded-lg w-full h-auto hover:opacity-90 transition-opacity shadow-md"
           />
-          <div className="absolute bottom-2 right-2 bg-teal-700 text-white text-xs p-1 rounded opacity-70">
-            Click to enlarge
+          <div className="absolute bottom-2 right-2 bg-teal-700/80 text-white p-1.5 rounded-full opacity-70 hover:opacity-100 transition-opacity">
+            <Maximize2 className="w-4 h-4" />
           </div>
           <div className="text-center mt-2 text-gray-600">Before State Update</div>
         </div>
-        <div className="w-full relative cursor-pointer" onClick={() => openFullSize("/bootcamp-day-three-2.png")}> 
+        <div className="w-full relative cursor-pointer group" onClick={() => openFullSize("/bootcamp-day-three-2.png")}> 
           <Image
             src="/bootcamp-day-three-2.png"
             alt="DApp After State Update"
             width={600}
             height={400}
-            className="rounded-lg w-full h-auto hover:opacity-90 transition-opacity"
+            className="rounded-lg w-full h-auto hover:opacity-90 transition-opacity shadow-md"
           />
-          <div className="absolute bottom-2 right-2 bg-teal-700 text-white text-xs p-1 rounded opacity-70">
-            Click to enlarge
+          <div className="absolute bottom-2 right-2 bg-teal-700/80 text-white p-1.5 rounded-full opacity-70 hover:opacity-100 transition-opacity">
+            <Maximize2 className="w-4 h-4" />
           </div>
           <div className="text-center mt-2 text-gray-600">After State Update</div>
         </div>

@@ -5,6 +5,8 @@
  * to protect your API key. We now use a Next.js API route to handle this securely.
  */
 
+import { hasClaimedCredential, storeClaimedCredential } from '@/utils/credentialStorage';
+
 /**
  * Issues an OCA credential to a user
  * 
@@ -20,6 +22,19 @@ export async function issueCredential(
 ) {
   try {
     console.log('Attempting to issue tutorial credential for:', holderOcId);
+
+    // Check if user already claimed this credential
+    const credentialType = 'tutorial';
+    const alreadyClaimed = hasClaimedCredential(holderOcId, credentialType);
+    
+    if (alreadyClaimed) {
+      console.log('User already claimed this credential');
+      return {
+        success: false,
+        message: 'You have already claimed this credential',
+        alreadyIssued: true
+      };
+    }
     
     // Call our local API route instead of the OCA API directly
     const response = await fetch('/api/issue-credential', {
@@ -28,10 +43,11 @@ export async function issueCredential(
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
-        credentialType: 'tutorial',
+        credentialType,
         holderOcId,
         userName,
         userEmail,
+        alreadyClaimed
       }),
     });
 
@@ -39,6 +55,17 @@ export async function issueCredential(
       let errorMessage = 'OCA API error';
       try {
         const errorData = await response.json();
+        
+        // If this is a duplicate credential, inform the user nicely
+        if (errorData.alreadyIssued) {
+          console.log('Credential already issued (server reported)');
+          return {
+            success: false,
+            message: 'You have already claimed this credential',
+            alreadyIssued: true
+          };
+        }
+        
         errorMessage = errorData.error || errorData.message || `HTTP error ${response.status}`;
         console.error('Full error response:', errorData);
       } catch (e) {
@@ -49,6 +76,12 @@ export async function issueCredential(
 
     const data = await response.json();
     console.log('Credential issued successfully:', data);
+    
+    // Store the credential claim in localStorage
+    if (data.success && data.claimRecord) {
+      storeClaimedCredential(data.claimRecord);
+    }
+    
     return data;
   } catch (error) {
     console.error('Error issuing credential:', error);
@@ -96,6 +129,19 @@ export async function issueBootcampCredential(
   try {
     console.log('Attempting to issue bootcamp credential for:', holderOcId);
     
+    // Check if user already claimed this credential
+    const credentialType = 'bootcamp';
+    const alreadyClaimed = hasClaimedCredential(holderOcId, credentialType);
+    
+    if (alreadyClaimed) {
+      console.log('User already claimed this credential');
+      return {
+        success: false,
+        message: 'You have already claimed this credential',
+        alreadyIssued: true
+      };
+    }
+    
     // Call our local API route instead of the OCA API directly
     const response = await fetch('/api/issue-credential', {
       method: 'POST',
@@ -103,10 +149,11 @@ export async function issueBootcampCredential(
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
-        credentialType: 'bootcamp',
+        credentialType,
         holderOcId,
         userName,
         userEmail,
+        alreadyClaimed
       }),
     });
 
@@ -114,6 +161,17 @@ export async function issueBootcampCredential(
       let errorMessage = 'OCA API error';
       try {
         const errorData = await response.json();
+        
+        // If this is a duplicate credential, inform the user nicely
+        if (errorData.alreadyIssued) {
+          console.log('Credential already issued (server reported)');
+          return {
+            success: false,
+            message: 'You have already claimed this credential',
+            alreadyIssued: true
+          };
+        }
+        
         errorMessage = errorData.error || errorData.message || `HTTP error ${response.status}`;
         console.error('Full error response:', errorData);
       } catch (e) {
@@ -124,6 +182,12 @@ export async function issueBootcampCredential(
 
     const data = await response.json();
     console.log('Bootcamp credential issued successfully:', data);
+    
+    // Store the credential claim in localStorage
+    if (data.success && data.claimRecord) {
+      storeClaimedCredential(data.claimRecord);
+    }
+    
     return data;
   } catch (error) {
     console.error('Error issuing bootcamp credential:', error);

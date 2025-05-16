@@ -1,3 +1,4 @@
+"use client";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import {
@@ -9,9 +10,32 @@ import {
 } from "@/components/ui/card";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
-import { AlertCircle } from "lucide-react";
+import { AlertCircle, ArrowRight } from "lucide-react";
+import { useOCAuth } from "@opencampus/ocid-connect-js";
+import { useEffect, useState } from "react";
+import { getProgress } from "@/lib/progress";
 
 export default function Home() {
+  const { isInitialized, authState } = useOCAuth();
+  const isConnected = isInitialized && authState.isAuthenticated;
+  const [workshopProgress, setWorkshopProgress] = useState<string>('');
+  const [tutorialProgress, setTutorialProgress] = useState<string>('');
+  
+  // Check for saved progress on component mount
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      const { workshop, tutorial } = getProgress();
+      
+      if (workshop.lastVisitedPage) {
+        setWorkshopProgress(workshop.lastVisitedPage);
+      }
+      
+      if (tutorial.lastVisitedPage) {
+        setTutorialProgress(tutorial.lastVisitedPage);
+      }
+    }
+  }, []);
+
   return (
     <div className="min-h-screen flex flex-col bg-teal-50">
       <Header />
@@ -36,15 +60,35 @@ export default function Home() {
                   A comprehensive introductory level course for beginners who want to get started in blockchain 
                   and Web3 technologies. Learn the fundamentals and core concepts in this three-day bootcamp.
                 </p>
-                <div className="bg-amber-50 p-3 rounded-md flex items-start mb-4 border border-amber-200">
-                  <AlertCircle className="w-5 h-5 text-amber-500 mt-0.5 mr-2 flex-shrink-0" />
-                  <p className="text-sm text-amber-700">
-                    Connect your OCID before starting this workshop to track your progress.
-                  </p>
-                </div>
-                <Link href="/user?redirectTo=/workshop/bootcamp">
+                
+                {/* Show continue button if progress exists */}
+                {workshopProgress && (
+                  <div className="bg-teal-50 p-3 rounded-md flex items-start mb-4 border border-teal-200">
+                    <ArrowRight className="w-5 h-5 text-teal-500 mt-0.5 mr-2 flex-shrink-0" />
+                    <div>
+                      <p className="text-sm text-teal-700 font-medium">
+                        You have unfinished progress
+                      </p>
+                      <Link href={workshopProgress}>
+                        <span className="text-xs text-teal-600 hover:underline">
+                          Continue where you left off
+                        </span>
+                      </Link>
+                    </div>
+                  </div>
+                )}
+                
+                {!isConnected && (
+                  <div className="bg-amber-50 p-3 rounded-md flex items-start mb-4 border border-amber-200">
+                    <AlertCircle className="w-5 h-5 text-amber-500 mt-0.5 mr-2 flex-shrink-0" />
+                    <p className="text-sm text-amber-700">
+                      Connect your OCID before starting this workshop to track your progress.
+                    </p>
+                  </div>
+                )}
+                <Link href={isConnected ? "/workshop/day-one" : "/user?redirectTo=/workshop/day-one"}>
                   <Button className="bg-teal-600 hover:bg-teal-700 text-white">
-                    Connect OCID & Start Workshop
+                    {isConnected ? "Start Workshop" : "Connect OCID & Start Workshop"}
                   </Button>
                 </Link>
               </div>
@@ -62,15 +106,35 @@ export default function Home() {
                   integrating Open Campus ID (OCID) and Open Campus Achievements (OCA) 
                   into your dApps with practical examples.
                 </p>
-                <div className="bg-amber-50 p-3 rounded-md flex items-start mb-4 border border-amber-200">
-                  <AlertCircle className="w-5 h-5 text-amber-500 mt-0.5 mr-2 flex-shrink-0" />
-                  <p className="text-sm text-amber-700">
-                    You'll need to connect with your OCID to complete this tutorial and claim your achievement.
-                  </p>
-                </div>
-                <Link href="/user?redirectTo=/tutorial/ocid/introduction">
+                
+                {/* Show continue button if progress exists */}
+                {tutorialProgress && (
+                  <div className="bg-teal-50 p-3 rounded-md flex items-start mb-4 border border-teal-200">
+                    <ArrowRight className="w-5 h-5 text-teal-500 mt-0.5 mr-2 flex-shrink-0" />
+                    <div>
+                      <p className="text-sm text-teal-700 font-medium">
+                        You have unfinished progress
+                      </p>
+                      <Link href={tutorialProgress}>
+                        <span className="text-xs text-teal-600 hover:underline">
+                          Continue where you left off
+                        </span>
+                      </Link>
+                    </div>
+                  </div>
+                )}
+                
+                {!isConnected && (
+                  <div className="bg-amber-50 p-3 rounded-md flex items-start mb-4 border border-amber-200">
+                    <AlertCircle className="w-5 h-5 text-amber-500 mt-0.5 mr-2 flex-shrink-0" />
+                    <p className="text-sm text-amber-700">
+                      You'll need to connect with your OCID to complete this tutorial and claim your achievement.
+                    </p>
+                  </div>
+                )}
+                <Link href={isConnected ? "/tutorial/ocid/introduction" : "/user?redirectTo=/tutorial/ocid/introduction"}>
                   <Button className="bg-teal-600 hover:bg-teal-700 text-white">
-                    Connect OCID & Start Tutorial
+                    {isConnected ? "Start Tutorial" : "Connect OCID & Start Tutorial"}
                   </Button>
                 </Link>
               </div>

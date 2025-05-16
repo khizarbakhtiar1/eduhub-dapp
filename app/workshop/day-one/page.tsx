@@ -4,6 +4,8 @@ import React, { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
+import WorkshopProgress from "@/components/WorkshopProgress";
+import { Maximize2 } from "lucide-react";
 
 export default function DayOne() {
   const [fullSizeImage, setFullSizeImage] = useState<string | null>(null);
@@ -18,13 +20,52 @@ export default function DayOne() {
 
   return (
     <div className="space-y-8">
-      {/* Instructor Profile Button */}
-      <div className="flex justify-end mb-4">
-        <Link href="/workshop/instructors">
-          <Button variant="outline" className="border-teal-600 text-teal-700 hover:bg-teal-50">
-            Check The Instructor Profile
-          </Button>
-        </Link>
+      {/* Workshop Progress */}
+      <WorkshopProgress />
+      
+      {/* Instructor Section */}
+      <div className="bg-teal-50 p-6 rounded-lg mb-8">
+        <h2 className="text-xl font-semibold text-teal-700 mb-4">
+          Meet Your Instructors
+        </h2>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          {/* Asharib Ali */}
+          <div className="bg-white rounded-lg shadow p-4 flex items-center">
+            <Image
+              src="/asharib-pic.jpeg"
+              alt="Asharib Ali"
+              width={80}
+              height={80}
+              className="rounded-full mr-4 object-cover"
+            />
+            <div>
+              <h3 className="font-semibold text-teal-700">Asharib Ali</h3>
+              <p className="text-sm text-gray-700">Founder @ EduHub | Trainer at GIAIC</p>
+              <div className="flex space-x-2 mt-1">
+                <a href="https://x.com/0xAsharib" target="_blank" rel="noopener noreferrer" className="text-xs text-teal-700 hover:underline">X</a>
+                <a href="https://www.linkedin.com/in/asharibali/" target="_blank" rel="noopener noreferrer" className="text-xs text-teal-700 hover:underline">LinkedIn</a>
+              </div>
+            </div>
+          </div>
+          {/* Khizar Bakhtiar */}
+          <div className="bg-white rounded-lg shadow p-4 flex items-center">
+            <Image
+              src="/khizar-pic.jpg"
+              alt="Khizar Bakhtiar"
+              width={80}
+              height={80}
+              className="rounded-full mr-4 object-cover"
+            />
+            <div>
+              <h3 className="font-semibold text-teal-700">Khizar Bakhtiar</h3>
+              <p className="text-sm text-gray-700">Co-Builder @EduHub | Blockchain Engineer @ArmUp</p>
+              <div className="flex space-x-2 mt-1">
+                <a href="https://x.com/Khizarbakhtiar1" target="_blank" rel="noopener noreferrer" className="text-xs text-teal-700 hover:underline">X</a>
+                <a href="https://www.linkedin.com/in/khizarbakhtiar/" target="_blank" rel="noopener noreferrer" className="text-xs text-teal-700 hover:underline">LinkedIn</a>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
       
       <h1 className="text-3xl font-bold text-teal-800 mb-6">
@@ -55,20 +96,20 @@ export default function DayOne() {
       <div className="space-y-12">
         {/* Blockchain Architecture Section */}
         <section className="border-b border-gray-200 pb-8">
-          <div className="flex flex-col gap-6">
-            <div className="w-full relative cursor-pointer" onClick={() => openFullSize("/blockchain-architecture.webp")}>
+          <div className="flex flex-col md:flex-row gap-6">
+            <div className="w-full md:w-1/3 relative cursor-pointer flex-shrink-0 group" onClick={() => openFullSize("/blockchain-architecture.webp")}>
               <Image
                 src="/blockchain-architecture.webp"
                 alt="Blockchain Architecture"
-                width={800}
-                height={500}
+                width={400}
+                height={300}
                 className="rounded-lg w-full h-auto hover:opacity-90 transition-opacity"
               />
-              <div className="absolute bottom-2 right-2 bg-teal-700 text-white text-xs p-1 rounded opacity-70">
-                Click to enlarge
+              <div className="absolute bottom-2 right-2 bg-teal-700/80 text-white p-1.5 rounded-full opacity-70 hover:opacity-100 transition-opacity">
+                <Maximize2 className="w-4 h-4" />
               </div>
             </div>
-            <div>
+            <div className="md:w-2/3">
               <h2 className="text-2xl font-bold text-teal-700 mb-3">
                 Blockchain Architecture
               </h2>
@@ -87,20 +128,20 @@ export default function DayOne() {
 
         {/* Blocks Section */}
         <section className="border-b border-gray-200 pb-8">
-          <div className="flex flex-col gap-6">
-            <div className="w-full relative cursor-pointer" onClick={() => openFullSize("/blocks.webp")}>
+          <div className="flex flex-col md:flex-row gap-6">
+            <div className="w-full md:w-1/3 relative cursor-pointer flex-shrink-0 group" onClick={() => openFullSize("/blocks.webp")}>
               <Image
                 src="/blocks.webp"
                 alt="Blockchain Blocks"
-                width={800}
-                height={500}
+                width={400}
+                height={300}
                 className="rounded-lg w-full h-auto hover:opacity-90 transition-opacity"
               />
-              <div className="absolute bottom-2 right-2 bg-teal-700 text-white text-xs p-1 rounded opacity-70">
-                Click to enlarge
+              <div className="absolute bottom-2 right-2 bg-teal-700/80 text-white p-1.5 rounded-full opacity-70 hover:opacity-100 transition-opacity">
+                <Maximize2 className="w-4 h-4" />
               </div>
             </div>
-            <div>
+            <div className="md:w-2/3">
               <h2 className="text-2xl font-bold text-teal-700 mb-3">
                 Blocks
               </h2>
@@ -119,20 +160,20 @@ export default function DayOne() {
 
         {/* Hashing Section */}
         <section className="border-b border-gray-200 pb-8">
-          <div className="flex flex-col gap-6">
-            <div className="w-full relative cursor-pointer" onClick={() => openFullSize("/hashing.webp")}>
+          <div className="flex flex-col md:flex-row gap-6">
+            <div className="w-full md:w-1/3 relative cursor-pointer flex-shrink-0 group" onClick={() => openFullSize("/hashing.webp")}>
               <Image
                 src="/hashing.webp"
                 alt="Hashing"
-                width={800}
-                height={500}
+                width={400}
+                height={300}
                 className="rounded-lg w-full h-auto hover:opacity-90 transition-opacity"
               />
-              <div className="absolute bottom-2 right-2 bg-teal-700 text-white text-xs p-1 rounded opacity-70">
-                Click to enlarge
+              <div className="absolute bottom-2 right-2 bg-teal-700/80 text-white p-1.5 rounded-full opacity-70 hover:opacity-100 transition-opacity">
+                <Maximize2 className="w-4 h-4" />
               </div>
             </div>
-            <div>
+            <div className="md:w-2/3">
               <h2 className="text-2xl font-bold text-teal-700 mb-3">
                 Hashing
               </h2>
@@ -154,20 +195,20 @@ export default function DayOne() {
 
         {/* Consensus Mechanisms Section */}
         <section className="border-b border-gray-200 pb-8">
-          <div className="flex flex-col gap-6">
-            <div className="w-full relative cursor-pointer" onClick={() => openFullSize("/consensus-mechanism.webp")}>
+          <div className="flex flex-col md:flex-row gap-6">
+            <div className="w-full md:w-1/3 relative cursor-pointer flex-shrink-0 group" onClick={() => openFullSize("/consensus-mechanism.webp")}>
               <Image
                 src="/consensus-mechanism.webp"
                 alt="Consensus Mechanisms"
-                width={800}
-                height={500}
+                width={400}
+                height={300}
                 className="rounded-lg w-full h-auto hover:opacity-90 transition-opacity"
               />
-              <div className="absolute bottom-2 right-2 bg-teal-700 text-white text-xs p-1 rounded opacity-70">
-                Click to enlarge
+              <div className="absolute bottom-2 right-2 bg-teal-700/80 text-white p-1.5 rounded-full opacity-70 hover:opacity-100 transition-opacity">
+                <Maximize2 className="w-4 h-4" />
               </div>
             </div>
-            <div>
+            <div className="md:w-2/3">
               <h2 className="text-2xl font-bold text-teal-700 mb-3">
                 Consensus Mechanisms
               </h2>
@@ -190,20 +231,20 @@ export default function DayOne() {
 
         {/* Decentralization Section */}
         <section className="border-b border-gray-200 pb-8">
-          <div className="flex flex-col gap-6">
-            <div className="w-full relative cursor-pointer" onClick={() => openFullSize("/decentralization.webp")}>
+          <div className="flex flex-col md:flex-row gap-6">
+            <div className="w-full md:w-1/3 relative cursor-pointer flex-shrink-0 group" onClick={() => openFullSize("/decentralization.webp")}>
               <Image
                 src="/decentralization.webp"
                 alt="Decentralization"
-                width={800}
-                height={500}
+                width={400}
+                height={300}
                 className="rounded-lg w-full h-auto hover:opacity-90 transition-opacity"
               />
-              <div className="absolute bottom-2 right-2 bg-teal-700 text-white text-xs p-1 rounded opacity-70">
-                Click to enlarge
+              <div className="absolute bottom-2 right-2 bg-teal-700/80 text-white p-1.5 rounded-full opacity-70 hover:opacity-100 transition-opacity">
+                <Maximize2 className="w-4 h-4" />
               </div>
             </div>
-            <div>
+            <div className="md:w-2/3">
               <h2 className="text-2xl font-bold text-teal-700 mb-3">
                 Decentralization
               </h2>
@@ -222,20 +263,20 @@ export default function DayOne() {
 
         {/* Smart Contracts Section */}
         <section className="border-b border-gray-200 pb-8">
-          <div className="flex flex-col gap-6">
-            <div className="w-full relative cursor-pointer" onClick={() => openFullSize("/smart-contracts.webp")}>
+          <div className="flex flex-col md:flex-row gap-6">
+            <div className="w-full md:w-1/3 relative cursor-pointer flex-shrink-0 group" onClick={() => openFullSize("/smart-contracts.webp")}>
               <Image
                 src="/smart-contracts.webp"
                 alt="Smart Contracts"
-                width={800}
-                height={500}
+                width={400}
+                height={300}
                 className="rounded-lg w-full h-auto hover:opacity-90 transition-opacity"
               />
-              <div className="absolute bottom-2 right-2 bg-teal-700 text-white text-xs p-1 rounded opacity-70">
-                Click to enlarge
+              <div className="absolute bottom-2 right-2 bg-teal-700/80 text-white p-1.5 rounded-full opacity-70 hover:opacity-100 transition-opacity">
+                <Maximize2 className="w-4 h-4" />
               </div>
             </div>
-            <div>
+            <div className="md:w-2/3">
               <h2 className="text-2xl font-bold text-teal-700 mb-3">
                 Smart Contracts
               </h2>
@@ -254,20 +295,20 @@ export default function DayOne() {
 
         {/* Security Section */}
         <section className="border-b border-gray-200 pb-8">
-          <div className="flex flex-col gap-6">
-            <div className="w-full relative cursor-pointer" onClick={() => openFullSize("/security.webp")}>
+          <div className="flex flex-col md:flex-row gap-6">
+            <div className="w-full md:w-1/3 relative cursor-pointer flex-shrink-0 group" onClick={() => openFullSize("/security.webp")}>
               <Image
                 src="/security.webp"
                 alt="Security"
-                width={800}
-                height={500}
+                width={400}
+                height={300}
                 className="rounded-lg w-full h-auto hover:opacity-90 transition-opacity"
               />
-              <div className="absolute bottom-2 right-2 bg-teal-700 text-white text-xs p-1 rounded opacity-70">
-                Click to enlarge
+              <div className="absolute bottom-2 right-2 bg-teal-700/80 text-white p-1.5 rounded-full opacity-70 hover:opacity-100 transition-opacity">
+                <Maximize2 className="w-4 h-4" />
               </div>
             </div>
-            <div>
+            <div className="md:w-2/3">
               <h2 className="text-2xl font-bold text-teal-700 mb-3">
                 Security
               </h2>
@@ -285,20 +326,20 @@ export default function DayOne() {
 
         {/* Real-World Uses Section */}
         <section className="border-b border-gray-200 pb-8">
-          <div className="flex flex-col gap-6">
-            <div className="w-full relative cursor-pointer" onClick={() => openFullSize("/real-world-usecases.webp")}>
+          <div className="flex flex-col md:flex-row gap-6">
+            <div className="w-full md:w-1/3 relative cursor-pointer flex-shrink-0 group" onClick={() => openFullSize("/real-world-usecases.webp")}>
               <Image
                 src="/real-world-usecases.webp"
                 alt="Real-World Uses"
-                width={800}
-                height={500}
+                width={400}
+                height={300}
                 className="rounded-lg w-full h-auto hover:opacity-90 transition-opacity"
               />
-              <div className="absolute bottom-2 right-2 bg-teal-700 text-white text-xs p-1 rounded opacity-70">
-                Click to enlarge
+              <div className="absolute bottom-2 right-2 bg-teal-700/80 text-white p-1.5 rounded-full opacity-70 hover:opacity-100 transition-opacity">
+                <Maximize2 className="w-4 h-4" />
               </div>
             </div>
-            <div>
+            <div className="md:w-2/3">
               <h2 className="text-2xl font-bold text-teal-700 mb-3">
                 Real-World Uses
               </h2>
@@ -323,20 +364,20 @@ export default function DayOne() {
 
         {/* Scaling Section */}
         <section className="border-b border-gray-200 pb-8">
-          <div className="flex flex-col gap-6">
-            <div className="w-full relative cursor-pointer" onClick={() => openFullSize("/scaling.webp")}>
+          <div className="flex flex-col md:flex-row gap-6">
+            <div className="w-full md:w-1/3 relative cursor-pointer flex-shrink-0 group" onClick={() => openFullSize("/scaling.webp")}>
               <Image
                 src="/scaling.webp"
                 alt="Scaling"
-                width={800}
-                height={500}
+                width={400}
+                height={300}
                 className="rounded-lg w-full h-auto hover:opacity-90 transition-opacity"
               />
-              <div className="absolute bottom-2 right-2 bg-teal-700 text-white text-xs p-1 rounded opacity-70">
-                Click to enlarge
+              <div className="absolute bottom-2 right-2 bg-teal-700/80 text-white p-1.5 rounded-full opacity-70 hover:opacity-100 transition-opacity">
+                <Maximize2 className="w-4 h-4" />
               </div>
             </div>
-            <div>
+            <div className="md:w-2/3">
               <h2 className="text-2xl font-bold text-teal-700 mb-3">
                 Scaling
               </h2>
@@ -352,24 +393,26 @@ export default function DayOne() {
 
         {/* Final Section */}
         <section>
-          <h2 className="text-2xl font-bold text-teal-700 mb-3">
-            Final Word
-          </h2>
-          <p className="text-gray-700 mb-2">
-            Blockchain is a decentralized ledger.
-          </p>
-          <p className="text-gray-700 mb-2">
-            It's secure, transparent, and tamper-proof.
-          </p>
-          <p className="text-gray-700 mb-2">
-            It's already revolutionizing industries.
-          </p>
-          <p className="text-gray-700 mb-2">
-            And the best part?
-          </p>
-          <p className="text-gray-700 font-semibold">
-            It's just getting started.
-          </p>
+          <div className="md:ml-[calc(33.33%+1.5rem)]">
+            <h2 className="text-2xl font-bold text-teal-700 mb-3">
+              Final Word
+            </h2>
+            <p className="text-gray-700 mb-2">
+              Blockchain is a decentralized ledger.
+            </p>
+            <p className="text-gray-700 mb-2">
+              It's secure, transparent, and tamper-proof.
+            </p>
+            <p className="text-gray-700 mb-2">
+              It's already revolutionizing industries.
+            </p>
+            <p className="text-gray-700 mb-2">
+              And the best part?
+            </p>
+            <p className="text-gray-700 font-semibold">
+              It's just getting started.
+            </p>
+          </div>
         </section>
       </div>
       
@@ -390,8 +433,9 @@ export default function DayOne() {
         </ul>
       </div>
       
-      {/* Navigation to next day - disabled for now */}
-      <div className="mt-10 flex justify-end">
+      {/* Navigation buttons */}
+      <div className="flex justify-between mt-12">
+        <div></div> {/* Empty div for spacing */}
         <Link href="/workshop/day-two">
           <Button className="bg-teal-600 hover:bg-teal-700 text-white">
             Continue to Day 2

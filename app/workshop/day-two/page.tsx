@@ -4,6 +4,8 @@ import React, { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
+import WorkshopProgress from "@/components/WorkshopProgress";
+import { Maximize2 } from "lucide-react";
 
 export default function DayTwo() {
   const [fullSizeImage, setFullSizeImage] = useState<string | null>(null);
@@ -18,6 +20,9 @@ export default function DayTwo() {
 
   return (
     <div className="space-y-8">
+      {/* Workshop Progress */}
+      <WorkshopProgress />
+      
       <h1 className="text-3xl font-bold text-teal-800 mb-6">
         Building Blockchain dApps - Day 2
       </h1>
@@ -42,17 +47,17 @@ export default function DayTwo() {
         </a>
       </div>
 
-      {/* Day 2 Banner */}
-      <div className="w-full relative cursor-pointer mb-10" onClick={() => openFullSize("/bootcamp-day-two.jpg")}>
+      {/* Day 2 Banner - resize to be smaller but not as small as day-one images */}
+      <div className="w-full max-w-3xl mx-auto relative cursor-pointer mb-10 group" onClick={() => openFullSize("/bootcamp-day-two.jpg")}>
         <Image
           src="/bootcamp-day-two.jpg"
           alt="Bootcamp Day Two"
-          width={1200}
-          height={600}
-          className="rounded-lg w-full h-auto hover:opacity-90 transition-opacity"
+          width={900}
+          height={500}
+          className="rounded-lg w-full h-auto hover:opacity-90 transition-opacity shadow-md"
         />
-        <div className="absolute bottom-2 right-2 bg-teal-700 text-white text-xs p-1 rounded opacity-70">
-          Click to enlarge
+        <div className="absolute bottom-3 right-3 bg-teal-700/80 text-white p-1.5 rounded-full opacity-70 hover:opacity-100 transition-opacity">
+          <Maximize2 className="w-5 h-5" />
         </div>
       </div>
 

@@ -39,14 +39,23 @@ EduHub is an educational decentralized application (dApp) built with Next.js, de
    yarn install
    ```
 
-3. Start the development server:
+3. Set up environment variables:
+   ```bash
+   # Copy the example env file
+   cp env.example .env.local
+
+   # Edit .env.local and add your values
+   # Replace 'your_api_key_here' with your actual OCA API key
+   ```
+
+4. Start the development server:
    ```bash
    npm run dev
    # or
    yarn dev
    ```
 
-4. Open [http://localhost:3000](http://localhost:3000) in your browser to view the application.
+5. Open [http://localhost:3000](http://localhost:3000) in your browser to view the application.
 
 ## Project Structure
 - `app/`: Contains all the page components and routing
@@ -91,3 +100,14 @@ This project is licensed under the MIT License - see the LICENSE file for detail
 ## Acknowledgments
 - Built with [Open Campus SDK](https://github.com/opencampus)
 - Original template created by [Asharib Ali](https://github.com/asharibali)
+
+## Environment Variables
+
+This application uses the following environment variables:
+
+| Variable | Description | Default |
+|----------|-------------|---------|
+| `OCA_API_KEY` | API key for Open Campus Achievements | - |
+| `OCA_ENVIRONMENT` | Environment for OCA API (sandbox or production) | sandbox |
+
+You must set the `OCA_API_KEY` value in your `.env.local` file for credential issuance to work.
