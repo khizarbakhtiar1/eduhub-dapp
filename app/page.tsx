@@ -21,9 +21,9 @@ export default function Home() {
   const [workshopProgress, setWorkshopProgress] = useState<string>('');
   const [tutorialProgress, setTutorialProgress] = useState<string>('');
   
-  // Check for saved progress on component mount
+  // Check for saved progress on component mount and when auth state changes
   useEffect(() => {
-    if (typeof window !== 'undefined') {
+    if (typeof window !== 'undefined' && isConnected) {
       const { workshop, tutorial } = getProgress();
       
       if (workshop.lastVisitedPage) {
@@ -33,8 +33,12 @@ export default function Home() {
       if (tutorial.lastVisitedPage) {
         setTutorialProgress(tutorial.lastVisitedPage);
       }
+    } else {
+      // Clear progress state when user is not authenticated
+      setWorkshopProgress('');
+      setTutorialProgress('');
     }
-  }, []);
+  }, [isConnected]);
 
   return (
     <div className="min-h-screen flex flex-col bg-teal-50">
@@ -61,8 +65,8 @@ export default function Home() {
                   and Web3 technologies. Learn the fundamentals and core concepts in this three-day bootcamp.
                 </p>
                 
-                {/* Show continue button if progress exists */}
-                {workshopProgress && (
+                {/* Show continue button only if progress exists AND user is authenticated */}
+                {isConnected && workshopProgress && (
                   <div className="bg-teal-50 p-3 rounded-md flex items-start mb-4 border border-teal-200">
                     <ArrowRight className="w-5 h-5 text-teal-500 mt-0.5 mr-2 flex-shrink-0" />
                     <div>
@@ -107,8 +111,8 @@ export default function Home() {
                   into your dApps with practical examples.
                 </p>
                 
-                {/* Show continue button if progress exists */}
-                {tutorialProgress && (
+                {/* Show continue button only if progress exists AND user is authenticated */}
+                {isConnected && tutorialProgress && (
                   <div className="bg-teal-50 p-3 rounded-md flex items-start mb-4 border border-teal-200">
                     <ArrowRight className="w-5 h-5 text-teal-500 mt-0.5 mr-2 flex-shrink-0" />
                     <div>
